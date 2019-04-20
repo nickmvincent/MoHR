@@ -3,7 +3,7 @@ import tensorflow as tf
 
 class MoHR():
     def save(self, sess):
-        self.saver.save(sess, self.model_name)
+        self.saver.save(sess, './' + self.model_name)
 
     def predict(self, item_i, item_j, relation, relation_emb):
         item_i = tf.expand_dims(item_i, 1)

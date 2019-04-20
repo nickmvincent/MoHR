@@ -71,11 +71,11 @@ test_sampler = WarpSampler(user_train, user_train_set, Item, usernum, itemnum, R
 sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
 
 model = MoHR(usernum, itemnum, Relationships, args)
-sess.run(tf.initialize_all_variables())
+sess.run(tf.global_variables_initializer())
 
 best_valid_auc = 0.5
 best_iter = 0
-num_batch = oneiteration / args.batch_size
+num_batch = int(oneiteration / args.batch_size)
 
 
 try:
@@ -103,7 +103,7 @@ try:
             f.write('#iter %d: loss %f, auc %f\n' % (i, train_loss, train_auc))
             _valid_auc = 0.0
             _test_auc = 0.0
-            n_batch = 1000000 / args.batch_size
+        n_batch = int(1000000 / args.batch_size)
 
             for _ in range(n_batch):
                 batch = valid_sampler.next_batch()
@@ -153,12 +153,7 @@ try:
                 model.save(sess)
             elif i >= best_iter + 50:
                 break
-except:
-    f.close()
-    sampler.close()
-    valid_sampler.close()
-    test_sampler.close()
-    exit(1)
+# except Exception as err:
 sampler.close()
 valid_sampler.close()
 test_sampler.close()

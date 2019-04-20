@@ -12,11 +12,15 @@ def sample_function(User, user_train_set, Item, usernum, itemnum, Relationships,
 
     def sample_ui():
         if not is_test:
-            user = np.random.randint(0, usernum)
-            while len(User[user]) <= 1: user = np.random.randint(0, usernum)
+            #user = np.random.randint(0, usernum)
+            user = random.sample(list(User.keys()), 1)[0]
+            while len(User[user]) <= 1: user = random.sample(list(User.keys()), 1)[0]
+            #while len(User[user]) <= 1: user = np.random.randint(0, usernum)
         else:
-            user = np.random.randint(0, usernum)
-            while len(User_test[user]) <= 1: user = np.random.randint(0, usernum)
+            #user = np.random.randint(0, usernum)
+            user = random.sample(list(User.keys()), 1)[0]
+            while len(User_test[user]) <= 1: user = random.sample(list(User.keys()), 1)[0]
+            #while len(User_test[user]) <= 1: user = np.random.randint(0, usernum)
         num_item = len(User[user])
         # find postive item pair
 
@@ -58,7 +62,7 @@ def sample_function(User, user_train_set, Item, usernum, itemnum, Relationships,
             i = np.random.randint(0, itemnum)
             while len(Item[i]['related']) == 0:
                 i = np.random.randint(0, itemnum)
-            r = invRelationships[np.random.choice(Item[i]['related'].keys(), 1)[0]]
+            r = invRelationships[np.random.choice(list(Item[i]['related'].keys()), 1)[0]]
 
             num_item = len(Item[i]['related'][Relationships[r]])
             if num_item != 0:
