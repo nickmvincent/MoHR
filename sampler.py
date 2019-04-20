@@ -12,15 +12,11 @@ def sample_function(User, user_train_set, Item, usernum, itemnum, Relationships,
 
     def sample_ui():
         if not is_test:
-            #user = np.random.randint(0, usernum)
             user = random.sample(list(User.keys()), 1)[0]
             while len(User[user]) <= 1: user = random.sample(list(User.keys()), 1)[0]
-            #while len(User[user]) <= 1: user = np.random.randint(0, usernum)
         else:
-            #user = np.random.randint(0, usernum)
             user = random.sample(list(User.keys()), 1)[0]
             while len(User_test[user]) <= 1: user = random.sample(list(User.keys()), 1)[0]
-            #while len(User_test[user]) <= 1: user = np.random.randint(0, usernum)
         num_item = len(User[user])
         # find postive item pair
 
